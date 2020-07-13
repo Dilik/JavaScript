@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<title> Click Button</title>
+
+<body>
+    <button id='myButton'> Click Me </button>
+    <p></p>
+    
+<script>
+    var b = document.querySelector("#myButton");
+    b.addEventListener('click', removeEvent);
+    
+    function removeEvent(evt){
+        alert("After you clicked the button Event is removed. On the next click you will not see any event");
+        b.removeEventListener('click', removeEvent);
+    }   
+</script>
+
+</body>
+</html>
