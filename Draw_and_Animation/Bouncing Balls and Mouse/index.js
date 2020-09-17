@@ -56,7 +56,7 @@ function movePlayerWithMouse() {
 
 function mainLoop() {
   // 1 - clear the canvas
-  ctx.clearRect(0, 0, w, h);
+  ctx.	clearRect(0, 0, w, h);
   
   // draw the ball and the player
   drawFilledRectangle(player);
