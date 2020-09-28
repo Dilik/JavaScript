@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple SignUp Form</title>
+</head>
+<body>
+	<h1>Registration</h1>
+
+	<form>
+		<label for="firstname">Firstname:</label>
+		<input type="text" name="firstname" id="firstname" placeholder="Firstname" required>
+		<label for="lastname">Lastname:</label>
+		<input type="text" name="lastname" id="lastname" placeholder="Lastname" required>
+		<div>
+			<label for="male">Male</label>
+			<input type="radio" name="gander" id="male" value="male">
+			<label for="female">Female</label>
+			<input type="radio" name="gander" id="femal" value="female">
+			<label for="other">other</label>
+			<input type="radio" name="gander" id="othe" value="other">
+		</div>
+		<div>
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email" placeholder="example@mail.com" required>
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" required title="5 to 10 character" pattern=".{5,10}">
+		</div>
+		<div>
+			<label for="DOB">Birthday</label>
+			<input type="date" name="date" id="DOB">
+		</div>
+
+		<label for="agreement">I agree with terms and contidions</label>
+		<input type="checkbox" name="agreement" id="agreement" value="agree" required>
+		<button>SignUp</button>
+
+	</form>
+</body>
+</html>
