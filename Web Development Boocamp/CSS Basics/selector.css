@@ -2,17 +2,17 @@
 label{
 	background-color:rgb(40,250,50);
 }
-li{
-
-} 
 
 /*Class Selector*/ 
 .hello{
-
+	text-shadow: 2px 2px 5px green;
+	color: green;
 }
 
 /*ID Selector*/ 
-#name{
+#grains{
+	font-weight: bold;
+	color: purple;
 
 }
 
@@ -37,6 +37,7 @@ h4 + ul {
 
 a[href="http://www.google.com"] {
 	background: blue;
+	color: white;
 }
 
 input[type="checkbox"]:checked{
