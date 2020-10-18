@@ -1,0 +1,15 @@
+section{
+    width: 80%;
+    height: 800px;
+    background-image: url(https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);
+    margin: 0 auto;
+    background-size: cover;
+    text-align: center;
+    justify-content: center;
+}
+
+h1{
+    font-size: 70px;
+    color: white;
+    padding-top: 300px;
+}
