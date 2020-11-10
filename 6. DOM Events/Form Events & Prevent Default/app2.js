@@ -16,3 +16,9 @@ const print = (quantity, product)=>{
     newList.innerText = `${quantity} ${product}`;
     post.append(newList);
 }
+
+const feedback = document.querySelector('#inputFeedback');
+const h2Feedback = document.querySelector('h2');
+feedback.addEventListener('input', ()=> {
+    h2Feedback.innerText = feedback.value;
+})
