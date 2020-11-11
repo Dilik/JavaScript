@@ -1,0 +1,8 @@
+const multiply = (x, y) => {return x*y}; 
+const square = x => multiply(x, x);
+
+const isRightTriangle = (a, b, c) =>{
+    square(a) + square(b) === square(c);
+}
+
+isRightTriangle(3,4,5);
