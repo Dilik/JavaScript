@@ -19,9 +19,11 @@ function updateScore(player, opponent){
     if(!isGameOver){
         player.score += 1;
         if(player.score === winningScore){
-            isGameOver = true;5
+            isGameOver = true;
             player.button.disabled = true; 
             opponent.button.disabled = true;
+            player.display.classList.add('winner');
+            opponent.display.classList.add('loser');
         }
         player.display.textContent = player.score;
     }

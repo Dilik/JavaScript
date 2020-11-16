@@ -46,3 +46,19 @@ fakeRequest('www.yelp.com/pag1')
         console.log("Oh No Request Fails")
         console.log(data);
     })
+
+    const colorChange = (color, delay)=> {
+        return new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                document.body.style.backgroundColor = color;
+                resolve();
+            }, delay)
+        })
+    }
+
+    colorChange('red', 500)
+        .then(()=> colorChange('orange', 700))
+        .then(()=> colorChange('blue', 700))
+        .then(()=> colorChange('yellow', 700))
+        .then(()=> colorChange('green', 700))
+        .then(()=> colorChange('pink', 700))
