@@ -1,3 +1,11 @@
+// GET /comments - list all comments
+// GET /comments/:id - list one comment
+// POST /comments = create new comment
+// GET /comments/:id - get one comment
+// PATCH /comments/:id - update one comment
+// GET /comment/:id/edit - edit one comment
+// DELETE /comments/:id - delete one comment
+
 const express = require('express');
 const app = express();
 const methodOverride = require('method-override');
@@ -58,7 +66,6 @@ app.get('/comments/:id', (req, res)=>{
     res.render('comments/show', {comment});
 })
 
-
 //edit page
 app.get('/comments/:id/edit', (req, res)=>{
     const {id} = req.params;
@@ -94,12 +101,5 @@ app.listen(3000, ()=>{
     console.log('Listening PORT 3000')
 })
 
-// GET /comments - list all comments
-// GET /comments/:id - list one comment
-// POST /comments = create new comment
-// GET /comments/:id - get one comment
-// PATCH /comments/:id - update one comment
-// GET /comment/:id/edit - edit one comment
-// DELETE /comments/:id - delete one comment
 
 
