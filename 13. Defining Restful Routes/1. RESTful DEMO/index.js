@@ -47,7 +47,13 @@ app.get('/comments', (req, res)=>{
 //create new comment
 app.get('/comments/new', (req,res)=>{
     res.render('comments/new');
-})
+})// GET /comments - list all comments
+// GET /comments/:id - list one comment
+// POST /comments = create new comment
+// GET /comments/:id - get one comment
+// PATCH /comments/:id - update one comment
+// GET /comment/:id/edit - edit one comment
+// DELETE /comments/:id - delete one comment
 
 //IOT create we need to POST inputed data 
 app.post('/comments', (req, res)=>{
