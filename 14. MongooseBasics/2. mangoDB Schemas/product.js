@@ -60,17 +60,24 @@ productSchema.methods.addCategories = function(newCat){
     return this.save();
 }
 
+//Static method
+productSchema.statics.fireSale = function(){
+    return this.updateMany({}, {onSale: true, price: 0});
+}
+
 const Product = mongoose.model('Product', productSchema);
 
-const bikeHelmet = new Product({ name: "Army Tan T Shirt", price: 10.99, categories: ['Uniform', 'Army'], size: 'M'});
-bikeHelmet.save()
-    .then(data =>{
-        console.log("It Worked", data);
-    })
-    .catch(err =>{
-        console.log("Error", err);
-    })
+//Create product
+// const bikeHelmet = new Product({ name: "Army Tan T Shirt", price: 10.99, categories: ['Uniform', 'Army'], size: 'M'});
+// bikeHelmet.save()
+//     .then(data =>{
+//         console.log("It Worked", data);
+//     })
+//     .catch(err =>{
+//         console.log("Error", err);
+//     })
 
+//Update the product
 // Product.findOneAndUpdate({name: "Green Army Toys"}, {price: 15.99, onSale: true}, {new: true, runValidators: true})
 //     .then(data =>{
 //         console.log("It Worked", data);
@@ -79,12 +86,11 @@ bikeHelmet.save()
 //         console.log("Error", err);
 //     })
 
-
+//Read the product from DaynamoDB
 // const findProduct = async()=>{
 //     const foundProduct = await Product.findOne({name: 'Army Tan T Shirt'});
 //     foundProduct.greet();
 // }
-
 // findProduct();
 
 
@@ -98,3 +104,8 @@ const findProduct = async()=>{
 }
 
 findProduct();
+
+//calling static function
+Product.fireSale()
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
