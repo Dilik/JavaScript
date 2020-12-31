@@ -3,13 +3,19 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override')
+const session = require('express-session');
+const flash = require('connect-flash');
+
+const sessionOptions = {secret: 'thisisnotagoodsecret', resave: false, saveUninitialized: false}
+app.use(session(sessionOptions));
+app.use(flash());
 
 const Product = require('./models/product');
 const Farm = require('./models/farm')
 const categories = ['fruit', 'vegetable', 'dairy'];
 
 
-mongoose.connect('mongodb://localhost:27017/farmStandTake', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/flashDemo', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!")
     })
@@ -26,6 +32,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'))
 
 // FARM ROUTES
+
+app.use((req, res, next)=>{
+    res.locals.messages = req.flash('success');
+    next();
+})
 
 app.get('/farms', async (req, res) => {
     const farms = await Farm.find({});
@@ -48,6 +59,7 @@ app.delete('/farms/:id', async(req, res)=>{
 app.post('/farms', async (req, res) => {
     const farm = new Farm(req.body);
     await farm.save();
+    req.flash('success', 'successfully made a new farm');
     res.redirect('/farms')
 })
 
