@@ -5,14 +5,14 @@ const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const Joi = require('joi');
 const ExpressError = require('./utils/ExpressError');
-const mongooose = require('mongoose');
+const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const { urlencoded } = require('express');
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
 const flash = require('connect-flash');
 
-mongooose.connect('mongodb://localhost:27017/yelp-camp', {
+mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
     useCreateIndex: true, 
     useUnifiedTopology: true,
@@ -20,7 +20,7 @@ mongooose.connect('mongodb://localhost:27017/yelp-camp', {
 })
 
 //check db conncetion
-const db = mongooose.connection; 
+const db = mongoose.connection; 
 db.on("error", console.error.bind(console,"connection error:"));
 db.once("open", ()=>{
     console.log("Database Connected");
