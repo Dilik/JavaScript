@@ -14,7 +14,18 @@ imageSchema.virtual('thumbnails').get(function () {
 
 const CampgroundSchema = new Schema({
     title: String,
-    images: [imageSchema], 
+    images: [imageSchema],
+    geometry: {
+        type: {
+            type: String, 
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
     price: Number,
     description: String,
     location: String,
@@ -33,13 +44,13 @@ const CampgroundSchema = new Schema({
 //once campground is deleted following middleware will delete
 //all the associated reviews
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
-    if(doc){
+    if (doc) {
         await Review.remove({
-            _id:{
+            _id: {
                 $in: doc.reviews
             }
         })
-    }    
+    }
 })
 
 module.exports = mongoose.model('Campground', CampgroundSchema);
