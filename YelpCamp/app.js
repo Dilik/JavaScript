@@ -16,6 +16,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const localStrategy = require('passport-local');
 const User = require('./models/user');
+const mongoSanitize = require('express-mongo-sanitize');
 
 //routes
 const userRoutes = require('./routes/users');
@@ -42,6 +43,9 @@ app.set('views', path.join(__dirname, 'views')); //get the view folder path
 app.use(express.urlencoded({ extended: true})); //helps to parse req.body
 app.use(methodOverride('_method')); //_method is variable to query other req methods
 app.use(express.static(path.join(__dirname, 'public'))); // be able to use public folder in boilerplate
+app.use(mongoSanitize({
+    replaceWith: '_'
+}));
 
 const sessionConfig = {
     secret: 'thisshouldbebettersecret',
@@ -66,6 +70,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //middleware to have access flash messages on template
 app.use((req, res, next)=>{
+    console.log(req.query);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
