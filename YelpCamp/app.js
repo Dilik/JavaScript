@@ -18,13 +18,14 @@ const localStrategy = require('passport-local');
 const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
-
+const mongoDBStore = require('connect-mongo')(session); //help to stove session in mongoDB
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp'; 
 //routes
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+mongoose.connect(dbUrl,{
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -48,9 +49,22 @@ app.use(mongoSanitize({
     replaceWith: '_'
 }));
 
+const secret = process.env.SECRET || 'thisshouldbebettersecret'
+
+//stroing session in mongodb 
+const store = new mongoDBStore({
+    url: dbUrl,
+    secret,
+    touchAfter: 24*60*60
+});
+store.on("error", function (e) {
+    console.log('Session Storing Error', e);
+})
+
 const sessionConfig = {
+    store,
     name: 'dim',
-    secret: 'thisshouldbebettersecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -63,11 +77,14 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
+
+//authentication setup
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
-app.use(helmet());
 
+
+app.use(helmet());
 //helmet ContentSecurtyPolicy
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
