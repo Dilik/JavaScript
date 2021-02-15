@@ -1,21 +1,20 @@
-const { models } = require("mongoose");
 const BaseJoi = require('joi');
 const sanitizeHTML = require('sanitize-html');
 
-const extension = (joi)=>({
+const extension = (joi) => ({
     type: 'string',
     base: joi.string(),
-    messages:{
+    messages: {
         'string.escapeHTML': '{{#label}} must not include HTML!'
     },
-    rules:{
-        escapeHTML:{
-            validate(value, helpers){
+    rules: {
+        escapeHTML: {
+            validate(value, helpers) {
                 const clean = sanitizeHTML(value, {
                     allowedTags: [],
                     allowedAttributes: {},
                 });
-                if(clean !== value) return helpers.error('string.escapeHTML', {value})
+                if (clean !== value) return helpers.error('string.escapeHTML', { value })
                 return clean;
             }
         }

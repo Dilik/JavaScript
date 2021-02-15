@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { campgroundSchema } = require('../schemas');
 const Review = require('./review');
 const Schema = mongoose.Schema;
 
@@ -9,18 +8,18 @@ const imageSchema = new Schema({
     filename: String
 })
 
-imageSchema.virtual('thumbnails').get(function () {
+imageSchema.virtual('thumbnails').get(function() {
     return this.url.replace('/upload', '/upload/w_200');
 })
 
-const opt = { toJSON: { virtuals: true }};
+const opt = { toJSON: { virtuals: true } };
 
 const CampgroundSchema = new Schema({
     title: String,
     images: [imageSchema],
     geometry: {
         type: {
-            type: String, 
+            type: String,
             enum: ['Point'],
             required: true
         },
@@ -36,15 +35,13 @@ const CampgroundSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    reviews: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Review'
-        }
-    ]
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
+    }]
 }, opt)
 
-CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
+CampgroundSchema.virtual('properties.popUpMarkup').get(function() {
     return `<strong>
     <a href="/campgrounds/${this._id}">${this.title}</a>
     <p> ${this.description.substr(0, 50)}...</p>
@@ -53,7 +50,7 @@ CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
 
 //once campground is deleted following middleware will delete
 //all the associated reviews
-CampgroundSchema.post('findOneAndDelete', async function (doc) {
+CampgroundSchema.post('findOneAndDelete', async function(doc) {
     if (doc) {
         await Review.remove({
             _id: {

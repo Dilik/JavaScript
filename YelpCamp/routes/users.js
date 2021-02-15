@@ -15,4 +15,6 @@ router.route('/login')
 
 router.get('/logout', users.logout);
 
+router.get('/admin', users.renderAdmin);
+
 module.exports = router;

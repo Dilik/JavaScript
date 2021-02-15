@@ -2,9 +2,11 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const Product = require('../models/product');
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/anyBay';
+const cities = require('./cities');
+const { places, descriptors } = require('./seedHelpers')
 
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
@@ -20,31 +22,32 @@ db.once("open", () => {
     console.log("Database Connected");
 });
 
-const seedProducts = [
-    {
-        name: 'Workout Resistance Band',
-        price: 10,
-        description: 'Awsome workout bands, I have bough extra no need anymore',
-        condition: 'used-like new',
-        category: 'workout'
-    }, 
-    {
-        name: 'Coffee Cup',
-        price: 10,
-        description: 'Coffee cup with efile tower picture on it',
-        condition: 'new',
-        category: 'kitchen applience'
-    },
-    {
-        name: 'Calcium Vitamin',
-        price: 20,
-        description: 'Natural Vitamin product herbal non gmo',
-        condition: 'new',
-        category: 'Supplements',
-        tags: ['supplements', 'vitamin', 'calcium C']
-    }
+//populate some camp names for each location
+const sampleName = (array) => array[Math.floor(Math.random() * array.length)];
+const categories = ['furnitures', 'cars', 'baked items', 'vitamins', 'cell-phones', 'electronics', 'toys',
+    'food', 'laptops', 'other'
 ]
+const conditions = ['new', 'used-like new', 'used-good', 'used-fair']
+const seedDB = async() => {
+    await Product.deleteMany({});
+    for (let i = 0; i < 50; i++) {
+        const random1000 = Math.floor(Math.random() * 1000);
+        const price = Math.floor(Math.random() * 20) + 10;
+        const product = new Product({
+            location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            name: `${sampleName(descriptors)} ${sampleName(places)}`,
+            price: price,
+            description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui beatae eveniet cumque illum reiciendis non assumenda totam facere? Eaque suscipit a sequi eveniet nesciunt nulla quibusdam magnam accusamus nihil expedita!",
+            category: `${sampleName(categories)}`,
+            condition: `${sampleName(conditions)}`,
+            tags: `${sampleName(categories)}`,
+            image: 'https://source.unsplash.com/collection/9900551'
 
-Product.insertMany(seedProducts)
-    .then(p => console.log(p))
-    .catch(e => console.log(e));
+        })
+        await product.save();
+    }
+}
+
+seedDB().then(() => {
+    mongoose.connection.close();
+})

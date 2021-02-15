@@ -74,10 +74,10 @@ module.exports.deleteCampground = async(req,res)=>{
     const {id} = req.params;
     // use bellow code when only goes to production.
     // all camps associated with same image if delete one camp all images will be gone
-    // const campground = await Campground.findById(id);
-    // campground.images.forEach(async(img)=>{
-    //     await cloudinary.uploader.destroy(img.filename);
-    // })
+    const campground = await Campground.findById(id);
+    campground.images.forEach(async(img)=>{
+        await cloudinary.uploader.destroy(img.filename);
+    })
     await Campground.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted campground');
     res.redirect('/campgrounds');

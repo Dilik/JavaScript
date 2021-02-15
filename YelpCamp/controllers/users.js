@@ -37,3 +37,7 @@ module.exports.logout = (req, res)=>{
     req.flash('success', 'Good Bye !');
     res.redirect('/campgrounds');
 }
+
+module.exports.renderAdmin = (req, res)=>{
+    res.render('users/admin');
+}

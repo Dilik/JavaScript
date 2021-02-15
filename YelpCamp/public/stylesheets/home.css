@@ -35,3 +35,34 @@ body {
     color: #333;
     text-shadow: none;
 }
+
+@media (max-width: 500px) {
+    .btn {
+      font-size:14px;
+      padding:4px 6px;
+    }
+    .lead{
+        font-size: 15px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .btn {
+      font-size:20px;
+      padding:6px 12px;
+    }
+    .lead{
+        font-size: 24px;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .btn {
+        font-size:25px;
+        padding:6px 12px;
+      }
+      .lead{
+          font-size: 30px;
+      }
+  }
+  

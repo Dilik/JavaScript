@@ -1,37 +1,40 @@
 const mongoose = require('mongoose');
+const Review = require('./review');
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    description: {
-        type: String,
-        required: true
-    },
+    name: String,
+    image: String,
+    price: Number,
+    description: String,
+    location: String,
     condition: {
         type: String,
-        lowercase: true,
         enum: ['new', 'used-like new', 'used-good', 'used-fair'],
-        required: true
     },
     category: {
         type: String,
-        lowercase: true,
         enum: ['furnitures', 'cars', 'baked items', 'vitamins', 'cell-phones', 'electronics', 'toys',
             'food', 'laptops', 'other'
         ],
-        required: true
     },
     tags: {
         type: String,
         lowercase: true
+    },
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
+    }]
+})
+
+productSchema.post('findOneAndDelete', async function(doc) {
+    if (doc) {
+        await Review.remove({
+            _id: {
+                $in: doc.reviews
+            }
+        })
     }
 })
 

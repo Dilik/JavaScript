@@ -1,40 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout('layouts/boilerplate.ejs') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Page</title>
-</head>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <img class=" img-thumbnail rounded" src="<%=product.image %>" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        $
+                        <%=product.price %> -
+                            <%=product.name%>
+                    </h5>
+                    <p class="card-text text">
+                        <%= product.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-mute">
+                        Condition:
+                        <%= product.condition%>
+                    </li>
+                    <li class="list-group-item text-muted">
+                        Location:
+                        <%=product.location%>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <form action="/products/<%=product._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                        <a class="btn btn-info" href="/products/<%= product._id %>/edit">Edit</a>
+                    </form>
 
-<body>
-    <h1>
-        <%=product.name %>
-    </h1>
-    <ul>
-        <li>Price: $
-            <%=product.price %>
-        </li>
-        <li>Condition:
-            <%= product.condition %>
-        </li>
-    </ul>
-    <p>
-        Description:
-        <%=product.description%>
-    </p>
-    <hr>
-    <p>
-        <% for (let tag of product.tags.split(',')){ %>
-            <span> #<%= tag%> </span>
-            <% } %>
-    </p>
-    <a href="/products">All Products</a>
-    <a href="/products/<%= product._id %>/edit">Edit</a>
-    <form action="/products/<%=product._id%>?_method=DELETE" method="POST">
-        <button>Delete</button>
-    </form>
-
-</body>
-
-</html>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <h2>Leave a Review</h2>
+            <form action="/products/<%=product._id%>/reviews" method="POST" class="mb-3 needs-validation" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="rating">Rating</label>
+                    <input class="form-range" min="1" max="5" type="range" name="review[rating]" id="rating">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="body">Review</label>
+                    <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+                </div>
+                <button class="btn btn-success">Submit</button>
+            </form>
+            <% for(let review of product.reviews.reverse()){ %>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Rating:
+                            <%= review.rating %>
+                        </h5>
+                        <p class="card-text">Review:
+                            <%= review.body %>
+                        </p>
+                        <form action="/products/<%=product._id%>/reviews/<%= review._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+    </div>
