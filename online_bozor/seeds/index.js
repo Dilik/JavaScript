@@ -37,6 +37,7 @@ const seedDB = async() => {
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             name: `${sampleName(descriptors)} ${sampleName(places)}`,
             price: price,
+            author: '6032f033e6a3383226070bac',
             description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui beatae eveniet cumque illum reiciendis non assumenda totam facere? Eaque suscipit a sequi eveniet nesciunt nulla quibusdam magnam accusamus nihil expedita!",
             category: `${sampleName(categories)}`,
             condition: `${sampleName(conditions)}`,

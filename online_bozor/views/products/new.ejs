@@ -2,7 +2,7 @@
     <div class="row">
         <h1 class="text-center">Post a New Product</h1>
         <div class="col-6 offset-3">
-            <form action="/products" method="POST" class="needs-validation" novalidate>
+            <form action="/products" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="name">Title</label>
                     <input class="form-control" type="text" id="name" name="product[name]" placeholder="Enter product name" required>
@@ -11,10 +11,11 @@
                     <label class="form-label" for="location">Location</label>
                     <input class="form-control" type="text" id="location" name="product[location]" placeholder="Enter location" required>
                 </div>
-                <div class="mb-3">
+                <input type="file" name="image" id="image" multiple>
+                <!-- <div class="mb-3">
                     <label class="form-label" for="image">Image Url</label>
                     <input class="form-control" type="text" id="image" name="product[image]" required>
-                </div>
+                </div> -->
                 <div class="mb-3">
                     <label class="form-label" for="price">Product price</label>
                     <div class="input-group">
