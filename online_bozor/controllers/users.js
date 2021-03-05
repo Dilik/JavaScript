@@ -39,5 +39,5 @@ module.exports.login = async (req, res) => {
 module.exports.logout = (req, res) => {
     req.logout();
     req.flash('success', 'Good Bye!');
-    res.redirect('/products');
+    res.redirect('/');
 }

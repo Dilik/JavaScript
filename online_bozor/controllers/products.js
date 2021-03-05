@@ -1,6 +1,8 @@
 const Product = require('../models/product');
-const categories = ['', 'furnitures', 'cars', 'baked items', 'vitamins', 'cell-phones', 'electronics', 'toys',
-    'food', 'laptops', 'other'
+const { cloudinary } = require('../cloudinary');
+
+const categories = ['', 'Apparel & Accessorires', 'Style & Fashion', 'Home & Garden', 'Sporting Goods', 'Health & Wellness', 'Medical Health', 'Kids & Infants', 'Pets & Pet Supplies',
+    'Electronics', 'Home Improvement', 'Services', 'Other Categories'
 ];
 const conditions = ['', 'new', 'used-like new', 'used-good', 'used-fair'];
 
@@ -22,6 +24,7 @@ module.exports.newProductForm = (req, res) => {
 
 module.exports.createNewProduct = async (req, res, next) => {
     const newProduct = new Product(req.body.product);
+    newProduct.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     newProduct.author = req.user._id;
     await newProduct.save();
     req.flash('success', 'Successfully created new product');
@@ -54,12 +57,25 @@ module.exports.editForm = async (req, res) => {
 module.exports.updateProduct = async (req, res) => {
     const { id } = req.params;
     const product = await Product.findByIdAndUpdate(id, { ...req.body.product });
+    const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+    product.images.push(...imgs);
+    await product.save();
+    if(req.body.deleteImages){
+        for(let filename of req.body.deleteImages){
+            await cloudinary.uploader.destroy(filename);
+        }
+        await product.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } });
+    }
     req.flash('success', 'Successfully updated a product');
     res.redirect(`/products/${product._id}`);
 }
 
 module.exports.deleteProduct = async (req, res) => {
     const { id } = req.params;
+    const product = await Product.findById(id);
+    product.images.forEach(async(img)=>{
+        await cloudinary.uploader.destroy(img.filename);
+    })
     await Product.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted a product');
     res.redirect('/products');

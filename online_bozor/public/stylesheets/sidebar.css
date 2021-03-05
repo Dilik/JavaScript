@@ -2,6 +2,14 @@
      overflow-x: unset;
  }
  
+ a img:hover {
+    border: 1px solid #c8c7c9;
+    border-radius: 50%;
+    -moz-box-shadow: 0 0 5px #ccc;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 10px #ccc;
+ }
+
  #sidebar-wrapper {
      min-height: 100vh;
      margin-left: -15rem;
@@ -30,7 +38,7 @@
      margin-left: 0;
  }
  
- @media (min-width: 768px) {
+ @media (min-width: 200px) {
      #sidebar-wrapper {
          margin-left: 0;
      }

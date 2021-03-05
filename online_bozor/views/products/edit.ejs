@@ -2,29 +2,48 @@
     <div class="row">
         <h1 class="text-center">Edit Product</h1>
         <div class="col-6 offset-3">
-            <form action="/products/<%=product._id%>?_method=PUT" method="POST" class="needs-validation" novalidate>
+            <form action="/products/<%=product._id%>?_method=PUT" method="POST" class="needs-validation" novalidate
+                enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="name">Title</label>
-                    <input class="form-control" value="<%= product.name %>" type="text" id="name" name="product[name]" placeholder="Enter product name" required>
+                    <input class="form-control" value="<%= product.name %>" type="text" id="name" name="product[name]"
+                        placeholder="Enter product name" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="location">Location</label>
-                    <input class="form-control" value="<%= product.location %>" type="text" id="location" name="product[location]" placeholder="Enter location" required>
+                    <div class="form-file custom-file">
+                        <input type="file" name="image" class="form-file-input" id="image" multiple>
+                        <label for="image" class="form-file-label">
+                            <span class="form-file-text custom-file-label"><i class="far fa-images text-center"> upload images ...</i></span>
+                            <span class="form-file-button">Browse</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="image">Image Url</label>
-                    <input class="form-control" value="<%= product.image%>" type="text" id="image" name="product[image]" required>
+                    <% if(product.images[0]){ %>
+                        <p> Check mark if you want to delete existing iamge(s) </p>
+                        <% product.images.forEach(function (img, i){ %>
+                            <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
+                            <div class="form-check-inline">
+                                <input type="checkbox" id="image-<%= i %>" name="deleteImages[]"
+                                    value="<%= img.filename %>">
+                            </div>
+                            <label for="image-<%= i %>" class="fa fa-trash"></label>
+                            <% }) %>
+                                <% } %>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Product price</label>
                     <div class="input-group">
                         <span class="input-group-text" id="price-label">$</span>
-                        <input type="price" value="<%= product.price %>" id="price" name="product[price]" class="form-control" placeholder="0" aria-label="price" aria-describedby="price-label" required>
+                        <input type="price" value="<%= product.price %>" id="price" name="product[price]"
+                            class="form-control" placeholder="0" aria-label="price" aria-describedby="price-label"
+                            required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
-                    <textarea class="form-control" type="text" name="product[description]" id="description" required><%= product.description%> </textarea>
+                    <textarea class="form-control" type="text" name="product[description]" id="description"
+                        required><%= product.description%> </textarea>
                 </div>
 
                 <div class="input-group mb-3">
@@ -32,10 +51,12 @@
                         <label class="input-group-text" for="condition">Condition</label>
                     </div>
                     <select class="custom-select" id="condition" name="product[condition]" required>
-                            <% for(let condition of conditions){ %>
-                                <option value="<%= condition %>" <%=product.condition === condition ? 'selected' : '' %>><%= condition %></option>
-                            <% } %>  
-                        </select>
+                        <% for(let condition of conditions){ %>
+                            <option value="<%= condition %>" <%=product.condition===condition ? 'selected' : '' %>><%=
+                                    condition %>
+                            </option>
+                            <% } %>
+                    </select>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -43,9 +64,16 @@
                     </div>
                     <select class="custom-select" id="category" name="product[category]" required>
                         <% for(let category of categories){ %>
-                            <option value="<%= category %>" <%= product.category === category ? 'selected' : '' %>><%= category %></option>
-                          <% } %>  
+                            <option value="<%= category %>" <%=product.category===category ? 'selected' : '' %>><%=
+                                    category %>
+                            </option>
+                            <% } %>
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" id="phoneNumber" name="product[phoneNumber]" class="form-control"
+                        value="<%= product.phoneNumber %>">
                 </div>
                 <div class="mb-3">
                     <label for="tags" class="form-label">Tags</label>

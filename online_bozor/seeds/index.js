@@ -24,9 +24,9 @@ db.once("open", () => {
 
 //populate some camp names for each location
 const sampleName = (array) => array[Math.floor(Math.random() * array.length)];
-const categories = ['furnitures', 'cars', 'baked items', 'vitamins', 'cell-phones', 'electronics', 'toys',
-    'food', 'laptops', 'other'
-]
+const categories = ['', 'Apparel & Accessorires', 'Style & Fashion', 'Home & Garden', 'Sporting Goods', 'Health & Wellness', 'Medical Health', 'Kids & Infants', 'Pets & Pet Supplies',
+    'Electronics', 'Home Improvement', 'Services', 'Other Categories'
+];
 const conditions = ['new', 'used-like new', 'used-good', 'used-fair']
 const seedDB = async() => {
     await Product.deleteMany({});
@@ -42,8 +42,17 @@ const seedDB = async() => {
             category: `${sampleName(categories)}`,
             condition: `${sampleName(conditions)}`,
             tags: `${sampleName(categories)}`,
-            image: 'https://source.unsplash.com/collection/9900551'
-
+            phoneNumber: '907-251-6666',
+            images: [
+                {
+                  url: 'https://res.cloudinary.com/dwldt1tiq/image/upload/v1614454070/Ecommerce/rlzpmvm6ir0nvirl03ib.jpg',
+                  filename: 'Ecommerce/rlzpmvm6ir0nvirl03ib'
+                },
+                {
+                  url: 'https://res.cloudinary.com/dwldt1tiq/image/upload/v1614454076/Ecommerce/q6gbveckekmcd56kmzhm.jpg',
+                  filename: 'Ecommerce/q6gbveckekmcd56kmzhm'
+                }
+              ]
         })
         await product.save();
     }

@@ -5,27 +5,30 @@
             <form action="/products" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="name">Title</label>
-                    <input class="form-control" type="text" id="name" name="product[name]" placeholder="Enter product name" required>
+                    <input class="form-control" type="text" id="name" name="product[name]"
+                        placeholder="Enter product name" required>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="location">Location</label>
-                    <input class="form-control" type="text" id="location" name="product[location]" placeholder="Enter location" required>
+                    <div class="form-file custom-file">
+                        <input type="file" name="image" class="form-file-input" id="image" multiple>
+                        <label for="image" class="form-file-label">
+                            <span class="form-file-text custom-file-label"><i class="far fa-images text-center"> upload images ...</i></span>
+                            <span class="form-file-button">Browse</span>
+                        </label>
+                    </div>
                 </div>
-                <input type="file" name="image" id="image" multiple>
-                <!-- <div class="mb-3">
-                    <label class="form-label" for="image">Image Url</label>
-                    <input class="form-control" type="text" id="image" name="product[image]" required>
-                </div> -->
                 <div class="mb-3">
                     <label class="form-label" for="price">Product price</label>
                     <div class="input-group">
                         <span class="input-group-text" id="price-label">$</span>
-                        <input type="price" id="price" name="product[price]" class="form-control" placeholder="0" aria-label="price" aria-describedby="price-label" required>
+                        <input type="price" id="price" name="product[price]" class="form-control" placeholder="0"
+                            aria-label="price" aria-describedby="price-label" required>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
-                    <textarea class="form-control" type="text" name="product[description]" id="description" required></textarea>
+                    <textarea class="form-control" type="text" name="product[description]" id="description"
+                        placeholder="Write short description about product" required></textarea>
                 </div>
 
                 <div class="input-group mb-3">
@@ -34,20 +37,27 @@
                     </div>
                     <select class="custom-select" id="condition" name="product[condition]" required>
                         <% for(let condition of conditions){ %>
-                            <option value="<%= condition %>"><%= condition %></option>
-                        <% } %>  
+                            <option value="<%= condition %>">
+                                <%= condition %>
+                            </option>
+                            <% } %>
                     </select>
                 </div>
-
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="category">Category</label>
                     </div>
                     <select class="custom-select" id="category" name="product[category]" required>
                         <% for(let category of categories){ %>
-                            <option value="<%=category %>"><%= category %></option>
-                        <% } %>  
+                            <option value="<%=category %>">
+                                <%= category %>
+                            </option>
+                            <% } %>
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" id="phoneNumber" name="product[phoneNumber]" class="form-control" placeholder="ex. +998 90 123-45-67">
                 </div>
                 <div class="mb-3">
                     <label for="tags" class="form-label">Tags</label>
