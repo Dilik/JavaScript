@@ -1,24 +1,24 @@
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
-const express = require('express');
+const express = require('express'); 
 const app = express();
-const path = require('path');
-const mongoose = require('mongoose');
-const methodOverride = require('method-override');
-const ejsMate = require('ejs-mate');
-const ExpressError = require('./util/ExpressError');
-const session = require('express-session');
-const flash = require('connect-flash');
-const passport = require('passport');
-const localStrategy = require('passport-local');
-const User = require('./models/user');
-const mongoSanitize = require('express-mongo-sanitize');
+const path = require('path'); 
+const mongoose = require('mongoose'); 
+const methodOverride = require('method-override'); 
+const ejsMate = require('ejs-mate'); 
+const ExpressError = require('./util/ExpressError'); 
+const session = require('express-session'); 
+const flash = require('connect-flash'); 
+const passport = require('passport'); 
+const localStrategy = require('passport-local'); 
+const User = require('./models/user'); 
+const mongoSanitize = require('express-mongo-sanitize'); 
 const Product = require('./models/product');
 const mongoDBStore = require('connect-mongo').default; //help to store session in mongoDB
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/anyBay';
 
-const categories = ['', 'Apparel & Accessorires', 'Style & Fashion', 'Home & Garden', 'Sporting Goods', 'Health & Wellness', 'Medical Health', 'Kids & Infants', 'Pets & Pet Supplies',
+const categories = ['', 'Apparel and Accessorires', 'Style and Fashion', 'Home and Garden', 'Sporting Goods', 'Health and Wellness', 'Medical Health', 'Kids and Infants', 'Pets and Pet Supplies',
     'Electronics', 'Home Improvement', 'Services', 'Other Categories'
 ];
 
@@ -110,6 +110,7 @@ app.use((err, req, res, next) => {
 })
 
 const port = process.env.PORT || 3000
+
 app.listen(port, () => {
     console.log(`Serving at port ${port}`);
 })

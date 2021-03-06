@@ -8,50 +8,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="/stylesheets/home.css"> -->
     <link rel="stylesheet" href="/stylesheets/carousel.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <title>E-Bazar</title>
 </head>
-
-<!-- <body class="d-flex text-center text-white bg-white">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
-            <div>
-                <h3 class="float-md-left mb-0"><i class="fas fa-store"></i> E-Bazar</h3>
-                <nav class="nav nav-masthead justify-content-center float-md-right">
-                    <% if(!currentUser){ %>
-                        <a class="nav-link" href="/login">Login</a>
-                        <a class="nav-link" href="/register">Register</a>
-                        <% } else {%>
-                            <a class="nav-link" href="/logout">Logout</a>
-                            <% } %>
-                </nav>
-            </div>
-        </header>
-        <main class="px-3">
-            <h1> Online Market </h1>
-            <p class="lead"> You Can Post Your Own Products To Sell or </br> Buy Posted Products From Locals</p>
-            <a href="/products" class="btn btn-lg btn-success font-weight-bold">All Products</a>
-        </main>
-        <div class="container-fluid my-3">
-            <div class="row justify-content-center">
-                <% for(let i=1; i<categories.length-1; i++){ %>
-                    <div class="col-xs-6 col-md-4 col-lg-2">
-                        <a id='categories' href="/products?category=<%=categories[i]%>">
-                            <img src="/images/img-<%= i %>.jpg" class="shadow" alt="">
-
-                                <span><%= categories[i] %></span>
-                        </a>
-                    </div>
-                    <% } %>
-            </div>
-        </div>
-
-        <footer class="mt-auto text-50">
-            <p>&copy; 2021 E-Bazar</p>
-        </footer>
-    </div> -->
 
 <body>
     <nav class="navbar navbar-dark fixed-top nav-bg">
@@ -128,8 +88,8 @@
         <div class="container marketing d-flex display-row justify-content-center">
             <div class="row justify-content-center">
                 <div class="col-lg-2">
-                    <a href="/products" class="catLink">
-                        <img src="/images/all.png" width="140" height="140">
+                    <a href="/products" class="catLink" role="button">
+                        <img class="rounded-circle" src="/images/All.jpg" width="140" height="140">
                         <p>All Products
                     </a></p>
                 </div>
@@ -144,7 +104,7 @@
 
             <!-- Three columns of text below the carousel -->
             <div class="row justify-content-center">
-                <% for(let i=1; i<categories.length-1; i++){ %>
+                <% for(let i=1; i<categories.length; i++){ %>
 
                     <div class=" col-sm-6 col-md-4 col-lg-2">
                         <a class="catLink" href="/products?category=<%=categories[i]%>" role="button">

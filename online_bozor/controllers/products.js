@@ -1,8 +1,8 @@
 const Product = require('../models/product');
 const { cloudinary } = require('../cloudinary');
 
-const categories = ['', 'Apparel & Accessorires', 'Style & Fashion', 'Home & Garden', 'Sporting Goods', 'Health & Wellness', 'Medical Health', 'Kids & Infants', 'Pets & Pet Supplies',
-    'Electronics', 'Home Improvement', 'Services', 'Other Categories'
+const categories = ['', 'Apparel and Accessorires', 'Style and Fashion', 'Home and Garden', 'Sporting Goods', 'Health and Wellness', 'Medical Health', 'Kids and Infants', 'Pets and Pet Supplies',
+'Electronics', 'Home Improvement', 'Services', 'Other Categories'
 ];
 const conditions = ['', 'new', 'used-like new', 'used-good', 'used-fair'];
 
@@ -14,7 +14,7 @@ module.exports.index = async (req, res) => {
         res.render('products/index', { products, categories, category });
     } else {
         const products = await Product.find({});
-        res.render('products/index', { products, categories, category: 'All' });
+        res.render('products/index', { products, categories, category: 'All Products' });
     }
 }
 

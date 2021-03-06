@@ -10,6 +10,17 @@
     box-shadow: 0 0 10px #ccc;
  }
 
+ .catLink{
+    font-size: medium;
+    color: rgb(2, 2, 2);
+    border-bottom-color:rgba(4, 167, 17, 0.5);
+}
+
+.catLink:hover{
+    color: rgb(53, 50, 50);
+    border-bottom-color:rgba(4, 167, 17, 0.5);
+}
+
  #sidebar-wrapper {
      min-height: 100vh;
      margin-left: -15rem;

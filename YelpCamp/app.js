@@ -11,7 +11,6 @@ const Joi = require('joi');
 const ExpressError = require('./utils/ExpressError');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-const { urlencoded } = require('express');
 const flash = require('connect-flash');
 const passport = require('passport');
 const localStrategy = require('passport-local');

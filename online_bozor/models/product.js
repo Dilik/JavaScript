@@ -7,12 +7,16 @@ const imageSchema = new Schema({
     filename: String
 })
 
-imageSchema.virtual('thumbnail').get(function(){
+imageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_100');
 })
 
-imageSchema.virtual('imageResize').get(function(){
+imageSchema.virtual('imageResize').get(function () {
     return this.url.replace('/upload', '/upload/w_250,h_250,c_fill');
+})
+
+imageSchema.virtual('imageFit').get(function () {;
+    return this.url.replace('/upload', '/upload/w_300,h_350,c_fill')
 })
 
 const productSchema = new Schema({
@@ -31,8 +35,8 @@ const productSchema = new Schema({
     },
     category: {
         type: String,
-        enum: ['', 'Apparel & Accessorires', 'Style & Fashion', 'Home & Garden', 'Sporting Goods', 'Health & Wellness', 'Medical Health', 'Kids & Infants', 'Pets & Pet Supplies',
-        'Electronics', 'Home Improvement', 'Services', 'Other Categories']
+        enum: ['', 'Apparel and Accessorires', 'Style and Fashion', 'Home and Garden', 'Sporting Goods', 'Health and Wellness', 'Medical Health', 'Kids and Infants', 'Pets and Pet Supplies',
+            'Electronics', 'Home Improvement', 'Services', 'Other Categories']
     },
     tags: {
         type: String,
@@ -41,8 +45,10 @@ const productSchema = new Schema({
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: 'Review'
-    }]
-})
+    }],
+},
+    { timestamps: true}
+)
 
 productSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
